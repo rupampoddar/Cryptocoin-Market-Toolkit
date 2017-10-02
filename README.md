@@ -7,6 +7,8 @@ A command line tool (python script) to view cryptocoin details. Data is pulled f
   - Search coins (sort by rank|price|marketcap)
 
 ### Usage
+Python libs required
+* requests
 ```sh
 $ cd Cryptocoin-Market-Toolkit/
 ```
@@ -65,6 +67,12 @@ S ./program.py --search eth --sortorder marketcap_desc
  - More features (undisclosed （ ^_^）o自自o（^_^ ）)
  - Colored output
  - Local currency support
+
+### Donate
+
+###### BTC 3BsKLChCTuNk1Shcyya2EvqDH8MTq6p81F
+###### LTC LKxHN94vkseoLRikB8nCxT3oUX8h6tcZ5Z
+###### ETH 0x44C1c4870c38E3F2f712C1c25d31A57ef59caEca 
 
 License
 ----
