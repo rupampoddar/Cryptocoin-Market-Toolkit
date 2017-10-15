@@ -10,6 +10,7 @@ A command line tool (python script) to view cryptocoin details. Data is pulled f
 ### What's New
 #### v1.2
 * Sorting option added - % changes in last 1h/24h/7d
+
 #### v1.1
 * Local currency support
 * Codebase rewritten (modular)
@@ -53,7 +54,7 @@ $ ./cmt.py -t 50
 ```
 
 List top 50 cryptocoins with custom sorting.
-Available sorting params:
+Available sorting params (asc=Ascending, desc=Descending): 
 * rank
 * price
 * marketcap
@@ -63,6 +64,9 @@ Available sorting params:
 * price_desc
 * marketcap_asc
 * marketcap_desc
+* pc1  | pc1_asc  | pc1_desc   (% change in last 1 hour)
+* pc24 | pc24_asc | pc24_desc  (% change in last 24 hours)
+* pc7  | pc7_asc  | pc7_desc   (% change in last 7 days)
 
 ```sh
 $ ./cmt.py -t 50 -so marketcap_desc
