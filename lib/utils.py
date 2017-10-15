@@ -8,7 +8,7 @@ class Utils:
         self.db_cur = db[1]
         self.meta = meta
         self.config = config
-
+        self.percent_change = '24h'
 
     def __sort(self, sort = None):
         ''' Calculates order by field used in SQL query '''
@@ -17,16 +17,28 @@ class Utils:
         else:
             if '_' in sort:
                 sort = sort.split('_')
-                sort_by = sort[0] if sort[0] in ['price','marketcap'] else 'rank'
+                sort_by = sort[0] if sort[0] in ['price','marketcap','pc1','pc24','pc7'] else 'rank'
                 sort_order = sort[1] if sort[1] in ['asc','desc'] else 'asc'
             else:
-                sort_by = sort if sort in ['price','marketcap'] else 'rank'
+                sort_by = sort if sort in ['price','marketcap','pc1','pc24','pc7'] else 'rank'
                 sort_order = 'asc'
-
+            
             if sort_by == 'price':
                 sort_by = 'price_usd'
             elif sort_by == 'marketcap':
                 sort_by = 'market_cap_usd'
+            
+            # Expand short forms
+            if sort_by in ['pc1','pc24','pc7']:
+                if sort_by == 'pc1':
+                    sort_by = 'percent_change_1h'
+                    self.percent_change = '1h'
+                elif sort_by == 'pc24':
+                    sort_by = 'percent_change_24h'
+                    self.percent_change = '24h'
+                elif sort_by == 'pc7':
+                    sort_by = 'percent_change_7d'
+                    self.percent_change = '7d'            
             orderby = sort_by + " " + sort_order
         return orderby
 
@@ -35,10 +47,10 @@ class Utils:
         ''' Prints data as a table '''
         c = self.config[1].lower()
         if c == 'usd':
-            headers = ['Rank','Name','Symbol','Price (USD)','Market Cap (USD)']
+            headers = ['Rank','Name','Symbol','Price (USD)','Market Cap (USD)','% Change {}'.format(self.percent_change)]
         else:
             tmp = c.upper()
-            headers = ['Rank','Name','Symbol','Price ({})'.format(tmp),'Market Cap ({})'.format(tmp),'Price (USD)','Market Cap (USD)']
+            headers = ['Rank','Name','Symbol','Price ({})'.format(tmp),'Market Cap ({})'.format(tmp),'Price (USD)','Market Cap (USD)','% Change {}'.format(self.percent_change)]
         
         # build table data
         table_data = []
@@ -48,16 +60,22 @@ class Utils:
             symbol=i[2]
             price_usd='None' if i[4] is None else float(i[4])
             market_cap_usd='None' if i[5] is None else float(i[5])
+            percent_change = 'None' if i[6] is None else float(i[6])
+            if percent_change != 'None':
+                if percent_change < 0:
+                    percent_change = '{} %'.format(percent_change)
+                else:
+                    percent_change = '+{} %'.format(percent_change)    
             if c == 'usd':
-                l = [rank,name,symbol,price_usd,market_cap_usd]
+                l = [rank,name,symbol,price_usd,market_cap_usd,percent_change]
             else:
-                price_local = i[6]
-                market_cap_local = i[7] 
-                l = [rank,name,symbol,price_local,market_cap_local,price_usd,market_cap_usd]    
+                price_local = i[7]
+                market_cap_local = i[8] 
+                l = [rank,name,symbol,price_local,market_cap_local,price_usd,market_cap_usd,percent_change]    
             table_data.append(l)
         
         # print table
-        print tabulate(table_data, headers=headers, tablefmt="plsql", floatfmt=('','','','.2f','.0f','.6f','.0f'))
+        print tabulate(table_data, headers=headers, tablefmt="plsql", floatfmt=('','','','.4f','.0f','.6f','.0f','.2f'), numalign="right",stralign="right")
 
 
     def top_coins(self, limit, sort = None):
@@ -66,12 +84,12 @@ class Utils:
         c = self.config[1].lower()
         if c == 'usd':
             query = \
-            '''select id,name,symbol,rank,price_usd,market_cap_usd 
-            from coinmarketcap_ticker order by {} limit ?'''.format(orderby)            
+            '''select id,name,symbol,rank,price_usd,market_cap_usd,percent_change_{} 
+            from coinmarketcap_ticker order by {} limit ?'''.format(self.percent_change,orderby)            
         else:
             query = \
-            '''select id,name,symbol,rank,price_usd,market_cap_usd, price_{},market_cap_{} 
-            from coinmarketcap_ticker order by {} limit ?'''.format(c,c,orderby)
+            '''select id,name,symbol,rank,price_usd,market_cap_usd,percent_change_{},price_{},market_cap_{} 
+            from coinmarketcap_ticker order by {} limit ?'''.format(self.percent_change,c,c,orderby)
             
         try:
             self.db_cur.execute(query,(limit,))
@@ -93,18 +111,18 @@ class Utils:
         c = self.config[1].lower()
         if c == 'usd':
             sql = \
-            '''select id,name,symbol,rank,price_usd,market_cap_usd 
+            '''select id,name,symbol,rank,price_usd,market_cap_usd,percent_change_{} 
             from coinmarketcap_ticker 
             where name like ? 
             collate nocase
-            order by {0}'''.format(orderby,)
+            order by {0}'''.format(self.percent_change,orderby)
         else:
             sql = \
-            '''select id,name,symbol,rank,price_usd,market_cap_usd,price_{},market_cap_{}
+            '''select id,name,symbol,rank,price_usd,market_cap_usd,percent_change_{},price_{},market_cap_{}
             from coinmarketcap_ticker
             where name like ? 
             collate nocase
-            order by {}'''.format(c,c,orderby)
+            order by {}'''.format(self.percent_change,c,c,orderby)
 
         try:
             self.db_cur.execute(sql,(search_query,))

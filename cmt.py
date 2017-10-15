@@ -12,12 +12,12 @@ from lib.utils import Utils
 def main():
     print '''
    11      | Cryptocoin-Market-Toolkit
-  ====,    | v 1.1
+  ====,    | v 1.2
    1   )   |                         /
-   1===    |             /\   /\_   /
-   1   )   |      /\   _/  \_/   \_/
-  ====^    |__/\_/  \_/           
-   11      |___________________________
+   1===    |             /\   /\_   / 
+   1   )   |      /\   _/  \_/   \_/   
+  ====^    |__/\_/  \_/               
+   11      |_________________@xc3p7i0n
     '''
     parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter)
 
@@ -49,8 +49,8 @@ def main():
         "-t",
         "--top",        
         help="Show top coins\n"
-        "$ ./cmt.py --top 20\n"
-        "$ ./cmt.py --top 50 --sortorder marketcap_desc",
+        "$ ./cmt.py -t 20\n"
+        "$ ./cmt.py -t 50 -so marketcap_desc",
         action="store",
         metavar=""
     )
@@ -58,8 +58,8 @@ def main():
         "-s", 
         "--search", 
         help="Search coins\n"
-        "$ ./cmt.py --search bitcoin\n"
-        "$ ./cmt.py --search bitcoin --sortorder price_desc",
+        "$ ./cmt.py -s bitcoin\n"
+        "$ ./cmt.py -s bitcoin -so price_desc",
         action="store",
         metavar=""
     )
@@ -68,8 +68,15 @@ def main():
         "--sortorder", 
         help="Use with --search or --top\n"
         "Available options\n"
-        "[rank | rank_asc | rank_desc | marketcap | marketcap_asc |\n"
-        "marketcap_desc | price | price_asc | price_desc ]", 
+        "* rank\n" 
+        "* rank_asc | rank_desc\n"
+        "* marketcap\n"
+        "* marketcap_asc | marketcap_desc\n"
+        "* price\n"
+        "* price_asc | price_desc\n"
+        "* pc1  (Percent change in last 1 hour) | pc1_asc | pc1_desc\n"
+        "* pc24 (Percent change in last 24 hours | pc24_asc | pc24_desc\n"
+        "* pc7  (Percent change in last 7 days | pc7_asc | pc7_desc", 
         default=None,
         action="store",
         metavar=""
