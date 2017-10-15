@@ -11,13 +11,13 @@ from lib.utils import Utils
 
 def main():
     print '''
-   11
-  ====,
-   1   )   Cryptocoin-Market-Toolkit
-   1===    v 1.1
-   1   )   
-  ====^
-   11 
+   11      | Cryptocoin-Market-Toolkit
+  ====,    | v 1.1
+   1   )   |                         /
+   1===    |             /\   /\_   /
+   1   )   |      /\   _/  \_/   \_/
+  ====^    |__/\_/  \_/           
+   11      |___________________________
     '''
     parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter)
 

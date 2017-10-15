@@ -2,7 +2,7 @@
 
 import sqlite3
 import os
-from .coinmarketcap import Coinmarketcap
+from .sources import Coinmarketcap
 
 class Database:
 
