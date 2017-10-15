@@ -1,37 +1,48 @@
-# Cryptocoin-Market-Toolkit
+# Cryptocoin-Market-Toolkit v1.1
 
 A command line tool (python script) to view cryptocoin details. Data is pulled from Coinmarketcap API, more sources will be added soon.
 
 ### Features
-  - List top coins (sort by rank|price|marketcap)
-  - Search coins (sort by rank|price|marketcap)
+  - Auto updates local cache every 5 mins
+  - List top coins (sorting option available)
+  - Search coins (sorting option available)
+
+### What's New in v1.1
+- Local currency support
+- Codebase rewritten (modular)
 
 ### Usage
 Python libs required
 * requests
+* tabulate
+
+```sh
+$ pip install requests
+$ pip install tabulate
+```
 ```sh
 $ cd Cryptocoin-Market-Toolkit/
 ```
-Setup local database (one time only)
-```sh
-$ chmod +x db_setup.py
-$ ./db_setup.py
+Setup (one time only)
+Default Setup (USD Only) 
+```sh 
+$ chmod +x cmt.py
+$ ./cmt.py --setup
+```
+Setup with local currency support
+```sh 
+$ chmod +x cmt.py
+$ ./cmt.py --setup --localcurrency inr
 ```
 
 Run program to show help
 ```sh
-$ chmod +x program.py
-$ ./program.py
-```
-
-Update local database 
-```sh
-$ ./program.py --update
+$ ./cmt.py
 ```
 
 List top 50 cryptocoins (sorted by Rank)
 ```sh
-$ ./program.py --top 50
+$ ./cmt.py --top 50
 ```
 
 List top 50 cryptocoins with custom sorting.
@@ -47,26 +58,25 @@ Available sorting params:
 * marketcap_desc
 
 ```sh
-$ ./program.py --top 50 --sortorder marketcap_desc
-$ ./program.py --top 50 --sortorder price_desc
-$ ./program.py --top 50 --sortorder price_asc
-$ ./program.py --top 50 --sortorder rank_asc
+$ ./cmt.py --top 50 --sortorder marketcap_desc
+$ ./cmt.py --top 50 --sortorder price_desc
+$ ./cmt.py --top 50 --sortorder price_asc
+$ ./cmt.py --top 50 --sortorder rank_asc
 ```
 
 Search for cryptocoins
 ```sh
-$ ./program.py --search bitcoin
+$ ./cmt.py --search bitcoin
 ```
 Search with sorting (same sorting params available)
 ```sh
-S ./program.py --search eth --sortorder marketcap_desc
+S ./cmt.py --search eth --sortorder marketcap_desc
 ```
 
 ### Todos
 
  - More features (undisclosed （ ^_^）o自自o（^_^ ）)
  - Colored output
- - Local currency support
 
 ### Donate
 

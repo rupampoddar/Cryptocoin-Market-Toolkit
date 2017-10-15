@@ -1,2 +1,8 @@
-sqlite.db
-config.json
+# python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# sqlite
+*.db
