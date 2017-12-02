@@ -58,10 +58,10 @@ class Utils:
             rank=i[3]
             name=i[1][:25]
             symbol=i[2]
-            price_usd='None' if i[4] is None else float(i[4])
-            market_cap_usd='None' if i[5] is None else float(i[5])
-            percent_change = 'None' if i[6] is None else float(i[6])
-            if percent_change != 'None':
+            price_usd='-' if i[4] is None else float(i[4])
+            market_cap_usd='-' if i[5] is None else float(i[5])
+            percent_change = '-' if i[6] is None else float(i[6])
+            if percent_change != '-':
                 if percent_change < 0:
                     percent_change = '{} %'.format(percent_change)
                 else:
@@ -70,7 +70,7 @@ class Utils:
                 l = [rank,name,symbol,price_usd,market_cap_usd,percent_change]
             else:
                 price_local = i[7]
-                market_cap_local = i[8] 
+                market_cap_local = '-' if i[8] is None else float(i[8])
                 l = [rank,name,symbol,price_local,market_cap_local,price_usd,market_cap_usd,percent_change]    
             table_data.append(l)
         
