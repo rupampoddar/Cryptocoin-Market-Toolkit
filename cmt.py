@@ -11,20 +11,24 @@ from lib.utils import Utils
 
 def main():
     print '''
-   11      | Cryptocoin-Market-Toolkit
-  ====,    | v 1.2
-   1   )   |                         /
-   1===    |             /\   /\_   / 
-   1   )   |      /\   _/  \_/   \_/   
-  ====^    |__/\_/  \_/               
-   11      |_________________@xc3p7i0n
+   ______   ____ ___   _______
+  / ____/  / __ `__ \ /__  __/
+ / /      / / / / / /   / /
+/ /____  / / / / / /   / /
+\_____/ /_/ /_/ /_/   /_/
+
+Cryptocoin-Market-Toolkit v1.2 @xc3p7i0n
     '''
-    parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter)
+    
+    parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, usage='%(prog)s [options]')
 
     parser.add_argument(
+        "-S",
         "--setup",
-        help="Initial setup\n"
-        "$ ./cmt.py --setup --localcurrency INR\n"
+        help="Setup (USD)\n"
+        "$ ./cmt.py -S\n"
+        "Setup (Local Currency)\n"
+        "$ ./cmt.py -S -C INR\n"
         "Available currencies:\n"
         "AUD, BRL, CAD, CHF, CLP, CNY, CZK, DKK, EUR, GBP\n"
         "HKD, HUF, IDR, ILS, INR, JPY, KRW, MXN, MYR, NOK\n"
@@ -32,19 +36,12 @@ def main():
         action="store_true"
     )
     parser.add_argument(
-        "--localcurrency",
+        "-C",
+        "--currency",
+        dest="",
         help="See --setup",
-        action="store",
-        metavar=""
+        action="store"
     )
-    '''
-    parser.add_argument(
-        "-u", 
-        "--update", 
-        help="Update local database", 
-        action="store_true"
-    )
-    '''
     parser.add_argument(
         "-t",
         "--top",        
@@ -67,16 +64,14 @@ def main():
         "-so", 
         "--sortorder", 
         help="Use with --search or --top\n"
-        "Available options\n"
-        "* rank\n" 
-        "* rank_asc | rank_desc\n"
-        "* marketcap\n"
-        "* marketcap_asc | marketcap_desc\n"
-        "* price\n"
-        "* price_asc | price_desc\n"
-        "* pc1  (Percent change in last 1 hour) | pc1_asc | pc1_desc\n"
+        "Available sorting options (add _asc or _desc for Ascending or Descending\n"
+        "* rank      [rank_asc | rank_desc]\n" 
+        "* marketcap [marketcap_asc | marketcap_desc]\n"
+        "* price     [price_asc | price_desc]\n"
+        "Percent changes\n"
+        "* pc1  (Percent change in last 1 hour)  | pc1_asc  | pc1_desc\n"
         "* pc24 (Percent change in last 24 hours | pc24_asc | pc24_desc\n"
-        "* pc7  (Percent change in last 7 days | pc7_asc | pc7_desc", 
+        "* pc7  (Percent change in last 7 days   | pc7_asc  | pc7_desc", 
         default=None,
         action="store",
         metavar=""
