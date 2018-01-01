@@ -1,6 +1,15 @@
-# Cryptocoin-Market-Toolkit v1.2
+# Cryptocoin-Market-Toolkit v1.3
 
-A command line tool (python script) to view cryptocoin details. Data is pulled from Coinmarketcap API, more sources will be added soon.
+```
+   ______   ____ ___   _______
+  / ____/  / __ `__ \ /__  __/
+ / /      / / / / / /   / /
+/ /____  / / / / / /   / /
+\_____/ /_/ /_/ /_/   /_/
+
+Author @xc3p7i0n (twitter.com/xc3p7i0n)
+```
+A command line tool (python script) to view cryptocoin details. Data is pulled from Coinmarketcap API, more sources _may_ be added soon.
 
 ### Features
 * Auto updates local cache every 5 mins
@@ -8,6 +17,10 @@ A command line tool (python script) to view cryptocoin details. Data is pulled f
 * Search coins (sorting option available)
 
 ### What's New
+#### v1.3
+* Field added - Available Supply
+* Sorting option added - supply_asc & supply_desc
+
 #### v1.2
 * Sorting option added - % changes in last 1h/24h/7d
 
@@ -67,6 +80,8 @@ Available sorting params (asc=Ascending, desc=Descending):
 * pc1  | pc1_asc  | pc1_desc   (% change in last 1 hour)
 * pc24 | pc24_asc | pc24_desc  (% change in last 24 hours)
 * pc7  | pc7_asc  | pc7_desc   (% change in last 7 days)
+* supply_asc
+* supply_desc
 
 ```sh
 $ ./cmt.py -t 50 -so marketcap_desc
@@ -91,11 +106,14 @@ $ ./cmt.py -s eth -so marketcap_desc
 * More features (undisclosed （ ^_^）o自自o（^_^ ）)
 * Colored output
 
+### Feature Request / Bug Report
+DM me on twitter :)
+
 ### Donate
 
-###### BTC 3BsKLChCTuNk1Shcyya2EvqDH8MTq6p81F
-###### LTC LKxHN94vkseoLRikB8nCxT3oUX8h6tcZ5Z
-###### ETH 0x44C1c4870c38E3F2f712C1c25d31A57ef59caEca 
+###### XRP r4s9nRF26kBuJPjA529mpPwzGR2kJRFoTP
+###### BTC 1CowJJXhA9NfB4wCu4pytfyFv6Zy14LD2G
+###### ETH 0xCB5132a2cA1AC210e9E32FCC590523768C8b205F
 
 License
 ----
